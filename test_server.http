@@ -1,0 +1,15 @@
+# Test your FastAPI endpoints
+
+POST http://127.0.0.1:8000/url/shorten
+Accept: application/json
+
+{
+    "url": "https://example.com"
+}
+
+###
+
+GET http://127.0.0.1:8000/r/new-short-url
+Accept: application/json
+
+###

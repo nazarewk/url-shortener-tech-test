@@ -1,10 +1,11 @@
-FROM python:3.11-slim-bullseye
+FROM python:3.13-slim-bullseye
 
+ENV LISTEN_ADDRESS=0.0.0.0
 WORKDIR /app
 
-COPY requirements.txt /app
-RUN pip install --no-cache -r /app/requirements.txt
+COPY requirements.lock.txt /app
+RUN pip install --no-cache -r /app/requirements.lock.txt
 
 COPY server.py /app
 
-ENTRYPOINT ["uvicorn", "--host", "0.0.0.0", "server:app"]
+ENTRYPOINT ["python", "server.py"]

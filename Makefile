@@ -1,5 +1,5 @@
 build:
-	docker build -t pw/url-shortener:latest .
+	podman load --input="$(shell nom build '.#url-shortener.container' --print-out-paths)"
 
 run: build
-	docker run -it --rm -p 8000:8000/tcp --name url-shortener pw/url-shortener:latest
+	podman run -it --rm -p 8000:8000/tcp --name url-shortener pw/url-shortener:latest
