@@ -9,7 +9,7 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/r/new-short-url
+GET http://127.0.0.1:8000/r/BK-v
 Accept: application/json
 
 ###

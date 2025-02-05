@@ -19,6 +19,7 @@
   makeWrapperArgs ? [],
   imageEntrypoint ? ["/bin/${name}"],
   imageEnv ? {},
+  imageOverlay ? old: old,
   ...
 }: let
   readRequirementNames = path:
@@ -84,7 +85,7 @@
     releaseEnv = releaseEnv;
     devEnv = devEnv;
 
-    container = pkgs.dockerTools.buildImage {
+    container = pkgs.dockerTools.buildImage (imageOverlay {
       name = imageName;
       tag = "latest";
       copyToRoot = pkgs.buildEnv {
@@ -94,7 +95,7 @@
       };
       config.Entrypoint = imageEntrypoint;
       config.Env = lib.attrsets.mapAttrsToList (name: value: "${name}=${value}") imageEnv;
-    };
+    });
   };
   pythonWriter = pkgs.writers.makeScriptWriter {
     interpreter = lib.getExe releaseEnv;

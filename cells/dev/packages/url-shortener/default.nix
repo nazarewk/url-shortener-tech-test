@@ -12,5 +12,5 @@ in
     python = pkgs.python313;
     src = __inputs__.inputs.projectRoot;
     scriptFile = src + /server.py;
-    imageEnv.LISTEN_HOST = "0.0.0.0";
+    imageEnv.LISTEN_ADDRESS = "0.0.0.0";
   }

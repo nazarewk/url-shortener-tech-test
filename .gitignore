@@ -37,3 +37,4 @@
 !/test_*.http
 !/requirements.txt
 !/requirements.lock.txt
+!/Dockerfile
