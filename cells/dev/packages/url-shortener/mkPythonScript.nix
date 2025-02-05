@@ -20,6 +20,7 @@
   imageEntrypoint ? ["/bin/${name}"],
   imageEnv ? {},
   imageOverlay ? old: old,
+  imageBuildEnvOverlay ? old: old,
   ...
 }: let
   readRequirementNames = path:
@@ -88,11 +89,11 @@
     container = pkgs.dockerTools.buildImage (imageOverlay {
       name = imageName;
       tag = "latest";
-      copyToRoot = pkgs.buildEnv {
+      copyToRoot = pkgs.buildEnv (imageBuildEnvOverlay {
         name = "image-root";
         paths = [script releaseEnv] ++ runtimeDeps;
         pathsToLink = ["/bin"];
-      };
+      });
       config.Entrypoint = imageEntrypoint;
       config.Env = lib.attrsets.mapAttrsToList (name: value: "${name}=${value}") imageEnv;
     });
