@@ -8,7 +8,7 @@ couple of hours building an MVP that meets the requirements in the Product Descr
 your solution and modify the provided template in the way that makes the most sense to you, but make sure to
 update the README accordingly so that it's clear how to run and test your project. During the interviews, you will
 be asked to demo your solution and discuss the reasoning behind your implementation decisions and their trade-offs.
-Be prepared to share your screen for live coding and problem solving with your interviewers based on this discussion.
+Be prepared to share your screen for live coding and problem-solving with your interviewers based on this discussion.
 
 ## Project Description
 
@@ -27,42 +27,48 @@ to one instance, and be able to resolve that shortened URL by sending subsequent
 
 ## Getting Started
 
-To begin the project, clone this repository to your local machine:
-
-```commandline
-git clone https://github.com/pocketzworld/url-shortener-tech-test.git
-```
-
-This repository contains a skeleton of the URL Shortener web service written in Python 3.13
+This repository contains a URL Shortener web service written in Python 3.13
 using the [FastAPI](https://fastapi.tiangolo.com/) framework.
-
 The API endpoints can be found in `server.py`.
 
-To set up your Linux/MacOS/WSL development environment:
+To begin the project, clone the repository to your local machine:
+
+```shell
+git clone https://github.com/nazarewk/url-shortener-tech-test.git
+```
+
+To set up a local Linux/MacOS/WSL development environment:
 
 1. install [`direnv`](https://direnv.net/docs/installation.html)
 2. install [`lix`](https://lix.systems/install/#on-any-other-linuxmacos-system) (or other Nix implementation)
 3. enter repository root and run `direnv allow`
     - now you can find all available executables in your `$PATH` and in `.bin/` subdirectory
-    - there is `.bin/python` that you can point your IDE to instead of configuring virtualenv yourself
-    - there is `url-shortener` shortcut to run the `server.py` during development
-4. run `direnv reload` to update your local environment after making changes to `*.nix` files or `requirements.txt`,
+    - there is `.bin/python` that you can point your IDE to (instead of managing virtualenv yourself)
+    - there is `url-shortener` shortcut to run the `server.py` directly during development
 
-Note that you are not required to use Docker or the provided FastAPI skeleton for your implementation, if you are
-more comfortable with other tools or frameworks. Your solution must still meet the requirements described in the
-Project Description. The following sections will assume that you are using Docker and FastAPI, but feel free to
-update the project and make sure to modify the README to reflect how your implementation should be run and tested.
+To pick up changes to your development environment (`*.nix` files or `requirements.txt`), just run `direnv reload` or
+restart your terminal.
 
 ### Running the service
 
 To run the web service in interactive mode, use the following command:
 
-```commandline
-make run
+```shell
+url-shortener
 ```
 
-This command will build a new Docker image (`pw/url-shortener:latest`) and start a container
-instance in interactive mode.
+You can build a release container image (`pw/url-shortener:latest`)
+and load it into your `podman` (or `docker`) with this command:
+
+```shell
+podman load --input="$(nix build '.#url-shortener.container' --no-link --print-out-paths)"
+```
+
+Then you can run it with:
+
+```shell
+podman run -it --rm -p 8000:8000/tcp --name url-shortener pw/url-shortener:latest
+```
 
 By default, the web service will run on port 8000.
 
@@ -75,11 +81,17 @@ the API endpoints of the URL shortener. To access it, start run the web service 
 
 When you have completed the project, please follow these guidelines for submission:
 
-1. Commit and push your code to your GitHub repository.
-2. Update this README with any additional instructions, notes, or explanations regarding your implementation, if
+1. [x] Commit and push your code to your GitHub repository.
+2. [ ] Update this README with any additional instructions, notes, or explanations regarding your implementation, if
    necessary.
-3. Provide clear instructions on how to run and test your project.
-4. Share the repository URL with the hiring team or interviewer.
+3. [ ] Provide clear instructions on how to:
+    - [x] run your project
+    - [ ] test your project
+4. [x] Share the repository URL with the hiring team or interviewer.
+
+## TODOs
+
+- [ ] purge the README.md from unnecessary paragraphs
 
 ## Additional Information
 
