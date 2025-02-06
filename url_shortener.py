@@ -6,6 +6,7 @@ import json
 import os
 import random
 import string
+import sys
 from typing import Annotated
 
 import cachetools
@@ -169,7 +170,7 @@ async def index():
 
 def main():
     uvicorn.run(
-        app,
+        "url_shortener:app",
         host=LISTEN_ADDRESS,
         port=LISTEN_PORT,
         log_level="info",

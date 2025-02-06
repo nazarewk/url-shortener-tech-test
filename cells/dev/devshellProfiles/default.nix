@@ -20,7 +20,7 @@
           cell.packages.url-shortener.devEnv
         ];
         text = ''
-          ${cell.packages.url-shortener.devEnv}/bin/python "$PRJ_ROOT/server.py" "$@"
+          ${cell.packages.url-shortener.devEnv}/bin/python "$PRJ_ROOT/url_shortener.py" "$@"
         '';
       })
       (pkgs.writeShellApplication {

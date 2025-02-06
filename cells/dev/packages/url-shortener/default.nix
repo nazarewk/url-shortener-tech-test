@@ -11,6 +11,9 @@ in
     imageName = "pw/${name}";
     python = pkgs.python313;
     src = __inputs__.inputs.projectRoot;
-    scriptFile = src + /server.py;
+    scriptFile = src + /url_shortener.py;
+    makeWrapperArgs = [
+      "--prefix NIX_PYTHONPATH : ${src}"
+    ];
     imageEnv.LISTEN_ADDRESS = "0.0.0.0";
   }

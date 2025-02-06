@@ -6,6 +6,6 @@ WORKDIR /app
 COPY requirements.lock.txt /app
 RUN pip install --no-cache -r /app/requirements.lock.txt
 
-COPY server.py /app
+COPY url_shortener.py /app
 
-ENTRYPOINT ["python", "server.py"]
+ENTRYPOINT ["python", "url_shortener.py"]

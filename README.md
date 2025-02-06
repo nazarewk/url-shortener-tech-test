@@ -19,7 +19,7 @@ to one instance, and be able to resolve that shortened URL by sending subsequent
 
 The project is written in Python 3.13 using [FastAPI](https://fastapi.tiangolo.com/) framework:
 
-- the project is contained in a single Python file `server.py`, the list of supported URLs
+- the project is contained in a single Python file `url_shortener.py`, the list of supported URLs
   can be found near the bottom of it,
 - stores short URLs inside SQL database supported by [SQLModel](https://sqlmodel.tiangolo.com/),
     - currently uses synchronous SQL, but is expected to switch to asynchronous SQL queries
@@ -82,7 +82,7 @@ To set up a local Linux/MacOS/WSL development environment:
 3. enter repository root and run `direnv allow`
     - now you can find all available executables in your `$PATH` and in `.bin/` subdirectory
     - there is `.bin/python` that you can point your IDE to (instead of managing virtualenv yourself)
-    - there is `url-shortener` shortcut to run the `server.py` directly during development
+    - there is `url-shortener` shortcut to run the `url_shortener.py` directly during development
 
 To pick up changes to your development environment (`*.nix` files or `requirements.txt`), just run `direnv reload` or
 restart your terminal.
@@ -93,8 +93,21 @@ To run the web service in interactive mode, use any of the following commands at
 
 ```shell
 url-shortener
-python server.py
-./.bin/python server.py
+python url_shortener.py
+./.bin/python url_shortener.py
+```
+
+You can run it multiple times by providing additional environment variables:
+
+- `LISTEN_ADDRESS`: an address to listen on (defaults to `127.0.0.1`)
+- `BASE_URL`: application url to send in responses (defaults to `http://localhost:8000`)
+- `WEB_CONCURRENCY`: number of workers in a single process (defaults to `1`)
+    - [ ] TODO: this doesn't work in current form
+
+So to run a second instance on Linux (MacOS requires manually assigning this IP ahead of time):
+
+```shell
+LISTEN_ADDRESS=127.0.0.2 BASE_URL='http://127.0.0.2:8000' WEB_CONCURRENCY=2 nix run '.#url-shortener'
 ```
 
 You can run the production version of the application with any of those commands:
@@ -154,8 +167,4 @@ When you have completed the project, please follow these guidelines for submissi
     - [x] run your project
     - [x] test your project
 4. [x] Share the repository URL with the hiring team or interviewer.
-
-## TODOs
-
-- [ ] confirm it works with multiple workers and separate instances
 
